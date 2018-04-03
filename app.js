@@ -8,7 +8,8 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
-const yinxs = require('./routes/test1')
+const yinxs1 = require('./routes/test1')
+const yinxs2 = require('./routes/test2')
 
 
 // error handler
@@ -37,7 +38,8 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-app.use(yinxs.routes(), yinxs.allowedMethods())
+app.use(yinxs1.routes(), yinxs1.allowedMethods())
+app.use(yinxs2.routes(), yinxs2.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
