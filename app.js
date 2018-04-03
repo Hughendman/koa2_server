@@ -11,6 +11,23 @@ const users = require('./routes/users')
 const yinxs1 = require('./routes/test1')
 const yinxs2 = require('./routes/test2')
 
+//使用redis，用来缓存数据
+const redis   = require('redis');
+const client  = redis.createClient({host:'192.168.14.6', port: 6379,no_ready_check:true});
+client.on("error", function (err) {
+    console.log("redis client连接失败",err);
+});
+client.on('ready', function (res) {
+    console.log('client ready');
+});
+
+client.on('connect', function () {
+    client.set("var_2", "var_2_val", function () {
+        var read_var_2=client.get("var_2");
+        console.log("第二次读取到的值："+read_var_2);
+    });
+    client.quit();
+});
 
 // error handler
 onerror(app)
